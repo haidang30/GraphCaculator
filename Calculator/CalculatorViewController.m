@@ -8,6 +8,7 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
+#import "GraphViewController.h"
 
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
@@ -56,9 +57,14 @@
     return _variableValues;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    GraphViewController *destinationViewController = segue.destinationViewController;
+    
+    [destinationViewController setNewProgram:self.brain.program];
+}
+
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *pressedDigit = sender.currentTitle;
-    
     
     // Replace default display @"0" with an initial digit (not dot sign)
     if ([self.display.text isEqualToString:@"0"]) {

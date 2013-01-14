@@ -32,16 +32,19 @@
 {
     // Drawing code
     //[AxesDrawer drawAxesInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)originAtPoint:CGPointMake(self.center.y , self.center.y) scale:10];
-    [AxesDrawer drawAxesInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)originAtPoint:CGPointMake(self.frame.size.width/2 , self.frame.size.height/2) scale:10];
+    CGPoint coordinatesTranslation = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    double scale = 10;
+    
+    [AxesDrawer drawAxesInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)originAtPoint:coordinatesTranslation scale:scale];
 
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    for (double x = (self.frame.size.width / 2) * -1; x < self.frame.size.width/2; x++)
+    for (double x = coordinatesTranslation.x * -1; x < coordinatesTranslation.x; x++)
     {
-        double y = [self.delegate yCoordinateOfXCoordinate:x];
-        CGContextFillRect(context, CGRectMake(x, y, 1, 1));
+        double y = [self.delegate yCoordinateOfXCoordinate:x / scale];
+        CGContextFillRect(context, CGRectMake(coordinatesTranslation.x + x, coordinatesTranslation.y - scale * y, 1, 1));
+//        NSLog(@"x = %g, y = %g -> point.x = %g, point.y = %g", x, y, coordinateTranslation.x + scale * x, coordinateTranslation.y - scale * y);
     }
-    
+
 
 }
 

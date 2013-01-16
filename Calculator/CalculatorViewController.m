@@ -22,6 +22,7 @@
 
 - (void)awakeFromNib {
     self.userIsInTheMiddleOfEnteringANumber = YES;
+    self.splitViewController.delegate = self;
 }
 
 
@@ -211,6 +212,61 @@
         [self.brain popAnObjectOutOfProgramStack];
         [self operationPressed:nil];
     }
+}
+
+
+- (GraphViewController *)splitViewGraphController
+{
+    id cvc = [self.splitViewController.viewControllers lastObject];
+    if (![cvc isKindOfClass:[GraphViewController class]]) {
+        cvc = nil;
+    }
+    return cvc;
+}
+- (IBAction)showGraph:(id)sender {
+    if ([self splitViewGraphController]) {
+        [[self splitViewGraphController] setNewProgram:self.brain.program];
+    } else {
+        [self performSegueWithIdentifier:@"segueToGraph" sender:self]; // else segue using ShowDiagnosis
+    }
+}
+
+#pragma UISplitViewControllerDelegate
+- (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter
+{
+    id detailVC = [self.splitViewController.viewControllers lastObject];
+    if (![detailVC conformsToProtocol:@protocol(SplitViewBarButtonItemPresenter)]) {
+        detailVC = nil;
+    }
+    return detailVC;
+}
+
+- (BOOL)splitViewController:(UISplitViewController *)svc
+   shouldHideViewController:(UIViewController *)vc
+              inOrientation:(UIInterfaceOrientation)orientation
+{
+    return [self splitViewBarButtonItemPresenter] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = self.title;
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
 }
 
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIGraphView.h"
+#import "SplitViewBarButtonItemPresenter.h"
 
-@interface GraphViewController : UIViewController <GraphViewDelegate> 
+@interface GraphViewController : UIViewController <GraphViewDelegate, SplitViewBarButtonItemPresenter>
 
 - (void)setNewProgram:(NSArray *)program;
 

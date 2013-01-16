@@ -11,11 +11,16 @@
 #import "AxesDrawer.h"  
 
 @interface UIGraphView()
+
 @property (nonatomic) double scale;
 @property (nonatomic) CGPoint origin;
+
+
 @end
 
 @implementation UIGraphView
+
+
 
 - (void)setScale:(double)scale {
     _scale = scale;
@@ -96,6 +101,8 @@
     for (double x = self.origin.x * -1; x < self.frame.size.width - self.origin.x; x++)
     {
         double y = [self.delegate yCoordinateOfXCoordinate:x / self.scale];
+//        using blocks
+//        double y = self.yBlock(x / self.scale);
         CGContextFillRect(context, CGRectMake(self.origin.x + x, self.origin.y - self.scale * y, 1, 1));
 //        NSLog(@"x = %g, y = %g -> point.x = %g, point.y = %g", x, y, coordinateTranslation.x + scale * x, coordinateTranslation.y - scale * y);
     }

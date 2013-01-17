@@ -442,7 +442,8 @@
                     <navigationItem key="navigationItem" title="Calculator" id="B3W-J2-pRO"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
-                        <outlet property="stackDisplay" destination="bmo-HX-aHt" id="TVd-SX-pOM"/>
+                        <outlet property="display" destination="LKp-Ue-Zwr" id="uH6-bm-Kmg"/>
+                        <outlet property="stackDisplay" destination="ldy-Jm-bEv" id="jGV-S9-0hW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kyY-QQ-Fjf" sceneMemberID="firstResponder"/>
@@ -511,6 +512,10 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="showGraph:"/>
+                <relationship kind="action" name="testPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="stackDisplay" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="variableDisplay" candidateClass="UILabel"/>

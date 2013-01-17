@@ -26,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D3B055916A6A8F30084C29E /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
 		8D8EF2D6169ACD7F00A19C5B /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8EF2DA169ACD7F00A19C5B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D8EF2DC169ACD7F00A19C5B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -106,6 +107,7 @@
 				8D8EF2F5169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard */,
 				8D8EF2F8169ACD7F00A19C5B /* CalculatorViewController.h */,
 				8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */,
+				8D3B055916A6A8F30084C29E /* SplitViewBarButtonItemPresenter.h */,
 				8D8EF2E1169ACD7F00A19C5B /* Supporting Files */,
 				8D8EF300169AD4A300A19C5B /* CalculatorBrain.h */,
 				8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */,

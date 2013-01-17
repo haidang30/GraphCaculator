@@ -43,7 +43,7 @@
 
 
 - (void)awakeFromNib {
-    self.scale = 10;
+    self.scale = 50;
     self.origin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     
     UIPinchGestureRecognizer *pinchGestureRegnizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPinch:)];
@@ -98,13 +98,25 @@
     [AxesDrawer drawAxesInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)originAtPoint:self.origin scale:self.scale];
 
     CGContextRef context = UIGraphicsGetCurrentContext();
-    for (double x = self.origin.x * -1; x < self.frame.size.width - self.origin.x; x++)
+    double previousPointY = 0;
+    for (double pointX = self.origin.x * -1; pointX < self.frame.size.width - self.origin.x; pointX++)
     {
-        double y = [self.delegate yCoordinateOfXCoordinate:x / self.scale];
+        double pointY = [self.delegate yCoordinateOfXCoordinate:pointX / self.scale] * self.scale;
 //        using blocks
 //        double y = self.yBlock(x / self.scale);
-        CGContextFillRect(context, CGRectMake(self.origin.x + x, self.origin.y - self.scale * y, 1, 1));
-//        NSLog(@"x = %g, y = %g -> point.x = %g, point.y = %g", x, y, coordinateTranslation.x + scale * x, coordinateTranslation.y - scale * y);
+        CGContextFillRect(context, CGRectMake(self.origin.x + pointX, self.origin.y - pointY, 1, 1));
+        
+        // Handle line breaking with function 1/x
+        if (pointY - previousPointY > 1) {
+            for (double fillPointY = previousPointY + 1; fillPointY < pointY; fillPointY++) {
+                CGContextFillRect(context, CGRectMake(self.origin.x + pointX, self.origin.y - fillPointY, 1, 1));
+            }
+        } else if (previousPointY - pointY > 1) {
+            for (double fillPointY = pointY + 1; fillPointY < previousPointY; fillPointY++) {
+                CGContextFillRect(context, CGRectMake(self.origin.x + pointX, self.origin.y - fillPointY, 1, 1));
+            }
+        }
+        previousPointY = pointY;
     }
 
 
